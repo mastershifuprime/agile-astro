@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const team = [
+  { name: 'John Doe', role: 'CEO & Founder', image: '/images/team/1.png' },
+  { name: 'Jane Smith', role: 'CTO', image: '/images/team/2.png' },
+  { name: 'Mike Johnson', role: 'Head of Product', image: '/images/team/3.png' },
+  { name: 'Sarah Wilson', role: 'Head of Design', image: '/images/team/4.png' },
+  { name: 'David Brown', role: 'Lead Developer', image: '/images/team/5.png' },
+  { name: 'Emily Davis', role: 'Marketing Director', image: '/images/team/6.png' },
+  { name: 'Chris Lee', role: 'Sales Manager', image: '/images/team/7.png' },
+  { name: 'Anna White', role: 'Customer Success', image: '/images/team/8.png' },
+];
+---
+
+<Layout title="Our Team - Agile">
+  <Header currentPath="/team" />
+  
+  <PageHeader title="Our Team" subtitle="Meet the amazing people behind Agile." />
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="row g-4">
+        {team.map((member) => (
+          <div class="md:col-6 lg:col-3">
+            <div class="rounded-lg overflow-hidden bg-white shadow text-center p-6">
+              <img loading="lazy" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover" src={member.image} alt={member.name} />
+              <h5 class="mb-1">{member.name}</h5>
+              <p class="text-light">{member.role}</p>
+              <div class="mt-4 flex justify-center space-x-3">
+                <a href="#" class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+  <Footer />
+</Layout>

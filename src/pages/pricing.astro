@@ -2,41 +2,63 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const plans = [
+  {
+    name: 'Starter',
+    monthlyPrice: 19,
+    yearlyPrice: 190,
+    features: ['5 Team Members', '10GB Storage', 'Basic Support', 'API Access'],
+    popular: false,
+  },
+  {
+    name: 'Professional',
+    monthlyPrice: 49,
+    yearlyPrice: 490,
+    features: ['25 Team Members', '100GB Storage', 'Priority Support', 'API Access', 'Custom Integrations'],
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    monthlyPrice: 99,
+    yearlyPrice: 990,
+    features: ['Unlimited Team Members', '1TB Storage', '24/7 Support', 'API Access', 'Custom Integrations', 'Dedicated Account Manager'],
+    popular: false,
+  },
+];
 ---
 
 <Layout title="Pricing - Agile">
-  <Header />
+  <Header currentPath="/pricing" />
   
-  <!-- Page Header -->
-  <section class="section pb-0">
-    <div class="container">
-      <div class="text-center">
-        <h1 class="mb-4">Simple, Transparent Pricing</h1>
-        <p class="text-lg text-light max-w-2xl mx-auto">Choose the plan that works best for you. All plans include a 7-day free trial.</p>
-      </div>
-    </div>
-  </section>
+  <PageHeader title="Pricing" subtitle="Choose the perfect plan for your needs." />
 
-  <!-- Pricing -->
-  <section class="section">
+  <section class="section-sm">
     <div class="container">
-      <div class="row g-4 justify-center">
-        {[
-          { name: "Starter", price: "29", features: ["5 Team Members", "10GB Storage", "Email Support", "Basic Analytics"] },
-          { name: "Professional", price: "79", popular: true, features: ["25 Team Members", "100GB Storage", "Priority Support", "Advanced Analytics", "API Access"] },
-          { name: "Enterprise", price: "199", features: ["Unlimited Members", "Unlimited Storage", "24/7 Support", "Custom Analytics", "API Access", "Custom Integrations"] },
-        ].map((plan) => (
+      <!-- Pricing Toggle -->
+      <div class="flex justify-center mb-10">
+        <div class="inline-flex rounded-lg bg-theme-light p-1">
+          <button data-package="monthly" class="btn btn-primary px-6 py-2">Monthly</button>
+          <button data-package="yearly" class="btn px-6 py-2">Yearly</button>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        {plans.map((plan) => (
           <div class="md:col-6 lg:col-4">
-            <div class={`bg-white shadow rounded-2xl p-8 ${plan.popular ? 'border-2 border-primary relative' : ''}`}>
-              {plan.popular && <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-sm px-4 py-1 rounded-full">Most Popular</span>}
+            <div class={`h-full rounded-xl border p-8 ${plan.popular ? 'popular' : 'border-border bg-white'}`}>
               <h4 class="mb-2">{plan.name}</h4>
               <div class="mb-6">
-                <span class="text-4xl font-bold text-dark">${plan.price}</span>
+                <span class="text-h2 font-bold text-primary" data-price-monthly={plan.monthlyPrice} data-price-yearly={plan.yearlyPrice}>
+                  ${plan.monthlyPrice}
+                </span>
                 <span class="text-light">/month</span>
               </div>
               <ul class="space-y-3 mb-8">
                 {plan.features.map((feature) => (
-                  <li class="flex items-center gap-2">
+                  <li class="flex items-center space-x-2">
                     <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                     </svg>
@@ -44,7 +66,7 @@ import Footer from '../components/Footer.astro';
                   </li>
                 ))}
               </ul>
-              <a href="/contact" class={`btn w-full ${plan.popular ? 'btn-primary' : 'btn-outline-primary'}`}>
+              <a href="/contact" class={`btn w-full text-center ${plan.popular ? 'btn-primary' : 'btn-outline-primary'}`}>
                 Get Started
               </a>
             </div>
@@ -54,26 +76,6 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section bg-theme-light">
-    <div class="container">
-      <div class="section-title text-center">
-        <h2>Frequently Asked Questions</h2>
-      </div>
-      <div class="max-w-3xl mx-auto">
-        {[
-          { q: "Can I cancel anytime?", a: "Yes, you can cancel your subscription at any time. No questions asked." },
-          { q: "Is there a free trial?", a: "Yes, all plans come with a 7-day free trial. No credit card required." },
-          { q: "Do you offer refunds?", a: "Yes, we offer a 30-day money-back guarantee on all plans." },
-        ].map((item) => (
-          <div class="bg-white rounded-lg shadow p-6 mb-4">
-            <h5 class="mb-2">{item.q}</h5>
-            <p class="text-light">{item.a}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
+  <CallToAction />
   <Footer />
 </Layout>

@@ -2,87 +2,64 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
 ---
 
 <Layout title="About Us - Agile">
-  <Header />
+  <Header currentPath="/about" />
   
-  <!-- Page Header -->
-  <section class="section pb-0">
-    <div class="container">
-      <div class="text-center">
-        <h1 class="mb-4">About Us</h1>
-        <p class="text-lg text-light max-w-2xl mx-auto">Learn more about our mission, values, and the team behind Agile.</p>
-      </div>
-    </div>
-  </section>
+  <PageHeader title="About Us" subtitle="We are a team of passionate individuals dedicated to helping businesses succeed." />
 
-  <!-- About Content -->
-  <section class="section">
+  <!-- About Section -->
+  <section class="section-sm">
     <div class="container">
-      <div class="row items-center gy-5">
+      <div class="row items-center gy-5 lg:gy-0">
         <div class="lg:col-6">
-          <img loading="lazy" width="498" height="462" class="rounded-lg shadow" src="/images/about/1.png" alt="About Agile" />
+          <img loading="lazy" width="444" height="454" src="/images/about/1.png" alt="about" class="rounded-lg shadow" />
         </div>
         <div class="lg:col-6">
-          <h2 class="mb-4">We're on a mission to simplify business</h2>
-          <p class="mb-4 text-light leading-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-          <p class="mb-6 text-light leading-7">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-          <a href="/contact" class="btn btn-primary">Get in Touch</a>
+          <h3 class="mb-3">Our Mission</h3>
+          <p class="mb-6 text-light leading-7">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, magni. 
+            Voluptates, voluptatum. Quod, magni. Voluptates, voluptatum.
+          </p>
+          <p class="mb-8 text-light leading-7">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, magni. 
+            Voluptates, voluptatum.
+          </p>
+          <a href="/contact" class="btn btn-primary">Contact Us</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Stats -->
-  <section class="section bg-theme-light">
-    <div class="container">
-      <div class="row text-center">
-        <div class="md:col-3 col-6 mb-8 md:mb-0">
-          <h2 class="text-primary mb-2">500+</h2>
-          <p class="text-dark font-semibold">Happy Clients</p>
-        </div>
-        <div class="md:col-3 col-6 mb-8 md:mb-0">
-          <h2 class="text-primary mb-2">1000+</h2>
-          <p class="text-dark font-semibold">Projects Done</p>
-        </div>
-        <div class="md:col-3 col-6">
-          <h2 class="text-primary mb-2">50+</h2>
-          <p class="text-dark font-semibold">Team Members</p>
-        </div>
-        <div class="md:col-3 col-6">
-          <h2 class="text-primary mb-2">10+</h2>
-          <p class="text-dark font-semibold">Years Experience</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title text-center">
-        <div class="main-title">team</div>
-        <h2>Meet Our Team</h2>
-      </div>
-      <div class="row g-4">
-        {[
-          { name: "John Doe", role: "CEO & Founder", img: "1" },
-          { name: "Jane Smith", role: "CTO", img: "2" },
-          { name: "Mike Johnson", role: "Lead Designer", img: "3" },
-          { name: "Sarah Williams", role: "Marketing Head", img: "4" },
-        ].map((member) => (
-          <div class="md:col-6 lg:col-3">
-            <div class="bg-white shadow rounded-lg p-6 text-center">
-              <img class="w-24 h-24 rounded-full mx-auto mb-4" src={`/images/team/${member.img}.png`} alt={member.name} />
-              <h5 class="mb-1">{member.name}</h5>
-              <p class="text-light">{member.role}</p>
-            </div>
+  <section class="section-sm">
+    <div class="has-bg">
+      <div class="container">
+        <div class="row text-center">
+          <div class="md:col-3">
+            <h2 class="text-primary" data-counter data-target="100" data-speed="50">0</h2>
+            <p class="text-lg font-semibold">Happy Clients</p>
           </div>
-        ))}
+          <div class="md:col-3">
+            <h2 class="text-primary" data-counter data-target="500" data-speed="50">0</h2>
+            <p class="text-lg font-semibold">Projects Completed</p>
+          </div>
+          <div class="md:col-3">
+            <h2 class="text-primary" data-counter data-target="50" data-speed="50">0</h2>
+            <p class="text-lg font-semibold">Team Members</p>
+          </div>
+          <div class="md:col-3">
+            <h2 class="text-primary" data-counter data-target="10" data-speed="50">0</h2>
+            <p class="text-lg font-semibold">Years Experience</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <CallToAction />
   <Footer />
 </Layout>

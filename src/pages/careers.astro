@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const jobs = [
+  { title: 'Senior Frontend Developer', department: 'Engineering', location: 'Remote', type: 'Full-time' },
+  { title: 'Product Manager', department: 'Product', location: 'San Francisco, CA', type: 'Full-time' },
+  { title: 'UX Designer', department: 'Design', location: 'Remote', type: 'Full-time' },
+  { title: 'DevOps Engineer', department: 'Engineering', location: 'Remote', type: 'Full-time' },
+  { title: 'Marketing Specialist', department: 'Marketing', location: 'New York, NY', type: 'Full-time' },
+  { title: 'Customer Success Manager', department: 'Support', location: 'Remote', type: 'Full-time' },
+];
+---
+
+<Layout title="Careers - Agile">
+  <Header currentPath="/careers" />
+  
+  <PageHeader title="Careers" subtitle="Join our team and help shape the future of SaaS management." />
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="lg:col-8 mx-auto">
+        <h3 class="mb-8 text-center">Open Positions</h3>
+        <div class="space-y-4">
+          {jobs.map((job) => (
+            <div class="rounded-lg border border-border bg-white p-6 hover:shadow transition">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <h5 class="mb-2"><a href="/career-single" class="hover:text-primary">{job.title}</a></h5>
+                  <div class="flex flex-wrap gap-3 text-sm">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary">
+                      {job.department}
+                    </span>
+                    <span class="inline-flex items-center text-light">
+                      <i class="fa fa-map-marker-alt mr-1"></i> {job.location}
+                    </span>
+                    <span class="inline-flex items-center text-light">
+                      <i class="fa fa-clock mr-1"></i> {job.type}
+                    </span>
+                  </div>
+                </div>
+                <a href="/career-single" class="btn btn-outline-primary">Apply Now</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction title="Don't see a role for you? Send us your resume anyway!" />
+  <Footer />
+</Layout>

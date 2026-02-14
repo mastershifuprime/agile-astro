@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+const posts = [
+  { title: 'How to Optimize Your SaaS Spending', excerpt: 'Learn the best practices for managing and optimizing your software subscriptions.', image: '/images/blog/1.png', date: 'Feb 14, 2026', author: 'John Doe' },
+  { title: 'The Future of Employee Onboarding', excerpt: 'Discover how automation is transforming the way companies onboard new employees.', image: '/images/blog/2.png', date: 'Feb 10, 2026', author: 'Jane Smith' },
+  { title: 'Security Best Practices for SaaS', excerpt: 'Essential security measures every organization should implement for their SaaS stack.', image: '/images/blog/3.png', date: 'Feb 5, 2026', author: 'Mike Johnson' },
+  { title: 'Streamlining IT Operations', excerpt: 'Tips and strategies for making your IT operations more efficient.', image: '/images/blog/4.png', date: 'Feb 1, 2026', author: 'Sarah Wilson' },
+  { title: 'Cost Analysis for Growing Startups', excerpt: 'How to manage your software costs as your company scales.', image: '/images/blog/1.png', date: 'Jan 28, 2026', author: 'David Brown' },
+  { title: 'Integration Strategies', excerpt: 'Best practices for integrating multiple SaaS tools into your workflow.', image: '/images/blog/2.png', date: 'Jan 25, 2026', author: 'Emily Davis' },
+];
+---
+
+<Layout title="Blog - Agile">
+  <Header currentPath="/blog" />
+  
+  <PageHeader title="Blog" subtitle="Latest news and insights from our team." />
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="row g-4">
+        {posts.map((post) => (
+          <div class="md:col-6 lg:col-4">
+            <div class="rounded-lg overflow-hidden bg-white shadow h-full">
+              <img loading="lazy" class="w-full h-48 object-cover" src={post.image} alt={post.title} />
+              <div class="p-6">
+                <div class="flex items-center space-x-4 text-sm text-light mb-3">
+                  <span>{post.date}</span>
+                  <span>•</span>
+                  <span>{post.author}</span>
+                </div>
+                <h5 class="mb-3"><a href="/blog-single" class="hover:text-primary">{post.title}</a></h5>
+                <p class="text-light mb-4">{post.excerpt}</p>
+                <a href="/blog-single" class="text-primary font-semibold hover:underline">Read More →</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

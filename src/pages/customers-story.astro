@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const customers = [
+  { name: 'Acme Corp', industry: 'Technology', quote: 'Agile has transformed how we manage our SaaS stack. We saved 40% on software costs in the first year.', image: '/images/testimonial/1.png', logo: '/images/brands/1.png' },
+  { name: 'Global Industries', industry: 'Manufacturing', quote: 'The onboarding automation alone has saved us hundreds of hours. Incredible product!', image: '/images/testimonial/2.png', logo: '/images/brands/2.png' },
+  { name: 'Tech Startup Inc', industry: 'SaaS', quote: 'As a fast-growing startup, Agile helps us keep our software expenses under control.', image: '/images/testimonial/1.png', logo: '/images/brands/3.png' },
+];
+---
+
+<Layout title="Customer Stories - Agile">
+  <Header currentPath="/customers-story" />
+  
+  <PageHeader title="Customer Stories" subtitle="See how companies are succeeding with Agile." />
+
+  <section class="section-sm">
+    <div class="container">
+      {customers.map((customer, index) => (
+        <div class={`row items-center gy-5 lg:gy-0 ${index > 0 ? 'mt-16' : ''}`}>
+          <div class={`lg:col-6 ${index % 2 === 1 ? 'order-2 lg:order-1' : ''}`}>
+            <img loading="lazy" class="h-10 mb-6" src={customer.logo} alt={customer.name} />
+            <h3 class="mb-3">{customer.name}</h3>
+            <p class="text-sm text-primary font-semibold mb-4">{customer.industry}</p>
+            <blockquote class="text-xl italic text-dark mb-6">"{customer.quote}"</blockquote>
+            <a href="/case-study" class="btn btn-outline-primary">Read Full Story</a>
+          </div>
+          <div class={`lg:col-6 ${index % 2 === 1 ? 'order-1 lg:order-2' : ''}`}>
+            <img loading="lazy" class="rounded-lg shadow" src={customer.image} alt={customer.name} />
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CallToAction title="Ready to write your success story?" />
+  <Footer />
+</Layout>

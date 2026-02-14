@@ -2,47 +2,60 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+
+const solutions = [
+  {
+    title: 'Sales & Revenue Operations',
+    description: 'Streamline your sales process with automated workflows and intelligent insights.',
+    image: '/images/solution/1.png',
+    features: ['Lead scoring', 'Pipeline management', 'Revenue forecasting', 'Team analytics'],
+  },
+  {
+    title: 'Employee Onboarding & Offboarding',
+    description: 'Automate the entire employee lifecycle from day one to departure.',
+    image: '/images/solution/2.png',
+    features: ['Automated provisioning', 'Access management', 'Compliance tracking', 'Exit workflows'],
+  },
+  {
+    title: 'SaaS Renewal Management',
+    description: 'Never miss a renewal deadline with automated tracking and alerts.',
+    image: '/images/solution/3.png',
+    features: ['Renewal calendar', 'Cost optimization', 'Usage analytics', 'Contract management'],
+  },
+];
 ---
 
 <Layout title="Solutions - Agile">
-  <Header />
+  <Header currentPath="/solution" />
   
-  <!-- Page Header -->
-  <section class="section pb-0">
-    <div class="container">
-      <div class="text-center">
-        <h1 class="mb-4">Our Solutions</h1>
-        <p class="text-lg text-light max-w-2xl mx-auto">Discover how Agile can transform your business operations.</p>
-      </div>
-    </div>
-  </section>
+  <PageHeader title="Our Solutions" subtitle="Discover how we can help transform your business operations." />
 
-  <!-- Solutions Grid -->
-  <section class="section">
-    <div class="container">
-      <div class="row g-5">
-        {[
-          { title: "SaaS Management", desc: "Manage all your SaaS applications in one place. Track usage, costs, and compliance.", img: "1" },
-          { title: "Employee Onboarding", desc: "Streamline employee onboarding with automated workflows and app provisioning.", img: "2" },
-          { title: "Cost Optimization", desc: "Identify unused licenses and optimize your software spend.", img: "3" },
-          { title: "Security & Compliance", desc: "Ensure your organization meets security and compliance requirements.", img: "4" },
-        ].map((solution) => (
-          <div class="lg:col-6">
-            <div class="bg-white shadow rounded-2xl p-8 flex flex-col md:flex-row gap-6 items-center">
-              <div class="flex-shrink-0">
-                <img loading="lazy" width="200" height="200" class="rounded-lg" src={`/images/solution/${solution.img}.png`} alt={solution.title} />
-              </div>
-              <div>
-                <h4 class="mb-3">{solution.title}</h4>
-                <p class="text-light mb-4">{solution.desc}</p>
-                <a href="/contact" class="btn btn-outline-primary">Learn More</a>
-              </div>
+  {solutions.map((solution, index) => (
+    <section class="section-sm">
+      <div class={index % 2 === 1 ? 'has-bg' : ''}>
+        <div class="container">
+          <div class="row items-center gy-5 lg:gy-0">
+            <div class={`lg:col-6 ${index % 2 === 1 ? 'order-2 lg:order-1' : ''}`}>
+              <h3 class="mb-3">{solution.title}</h3>
+              <p class="mb-6 text-light leading-7">{solution.description}</p>
+              <ul class="list-group text-dark mb-8">
+                {solution.features.map((feature) => (
+                  <li class="list-item">{feature}</li>
+                ))}
+              </ul>
+              <a href="/contact" class="btn btn-primary">Learn More</a>
+            </div>
+            <div class={`lg:col-6 ${index % 2 === 1 ? 'order-1 lg:order-2' : ''}`}>
+              <img loading="lazy" width="498" height="462" src={solution.image} alt={solution.title} class="rounded-lg shadow" />
             </div>
           </div>
-        ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ))}
 
+  <CallToAction />
   <Footer />
 </Layout>
