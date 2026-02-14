@@ -1,0 +1,32 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "Over 1,000 companies use Tech Stack Intelligence" } = Astro.props;
+
+const brands = [
+  { src: '/images/brands/1.png', alt: 'brand-1' },
+  { src: '/images/brands/2.png', alt: 'brand-2' },
+  { src: '/images/brands/3.png', alt: 'brand-3' },
+  { src: '/images/brands/4.png', alt: 'brand-4' },
+  { src: '/images/brands/5.png', alt: 'brand-5' },
+  { src: '/images/brands/6.png', alt: 'brand-6' },
+  { src: '/images/brands/7.png', alt: 'brand-7' },
+];
+---
+
+<section class="section-sm">
+  <div class="container">
+    <p class="text-center text-lg font-semibold text-light">{title}</p>
+    <div class="swiper brand-slider">
+      <div class="swiper-wrapper">
+        {brands.map((brand) => (
+          <div class="swiper-slide flex items-center justify-center grayscale opacity-90 hover:opacity-100 transition-opacity">
+            <img loading="lazy" width="110" height="36" src={brand.src} alt={brand.alt} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

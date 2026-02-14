@@ -1,0 +1,35 @@
+---
+const integrations1 = Array.from({ length: 10 }, (_, i) => ({
+  src: `/images/integrated/${i + 1}.png`,
+  alt: `integration-${i + 1}`,
+}));
+
+const integrations2 = Array.from({ length: 10 }, (_, i) => ({
+  src: `/images/integrated/${i + 11}.png`,
+  alt: `integration-${i + 11}`,
+}));
+---
+
+<div class="swiper logo-animation">
+  <div class="swiper-wrapper my-6">
+    {integrations1.map((item) => (
+      <div class="swiper-slide">
+        <div class="shadow bg-white flex-none flex items-center justify-center w-[120px] h-[120px] rounded-lg">
+          <img loading="lazy" width="46" height="46" src={item.src} alt={item.alt} />
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<div class="swiper logo-animation-rtl">
+  <div class="swiper-wrapper my-6">
+    {integrations2.map((item) => (
+      <div class="swiper-slide">
+        <div class="shadow bg-white flex-none flex items-center justify-center w-[120px] h-[120px] rounded-lg">
+          <img loading="lazy" width="46" height="46" src={item.src} alt={item.alt} />
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

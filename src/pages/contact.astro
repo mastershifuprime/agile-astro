@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contact Us - Agile">
+  <Header />
+  
+  <!-- Page Header -->
+  <section class="section pb-0">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="mb-4">Get in Touch</h1>
+        <p class="text-lg text-light max-w-2xl mx-auto">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="section">
+    <div class="container">
+      <div class="row g-5">
+        <div class="lg:col-6">
+          <div class="bg-white shadow rounded-2xl p-8">
+            <h3 class="mb-6">Send us a message</h3>
+            <form>
+              <div class="row g-4">
+                <div class="md:col-6">
+                  <label class="block mb-2 font-medium" for="name">Name</label>
+                  <input type="text" id="name" class="form-input w-full" placeholder="Your name" required />
+                </div>
+                <div class="md:col-6">
+                  <label class="block mb-2 font-medium" for="email">Email</label>
+                  <input type="email" id="email" class="form-input w-full" placeholder="Your email" required />
+                </div>
+                <div class="col-12">
+                  <label class="block mb-2 font-medium" for="subject">Subject</label>
+                  <input type="text" id="subject" class="form-input w-full" placeholder="Subject" />
+                </div>
+                <div class="col-12">
+                  <label class="block mb-2 font-medium" for="message">Message</label>
+                  <textarea id="message" rows="5" class="form-input w-full" placeholder="Your message" required></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary w-full">Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="lg:col-6">
+          <div class="bg-theme-light rounded-2xl p-8 h-full">
+            <h3 class="mb-6">Contact Information</h3>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-map-marker-alt text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Address</h5>
+                  <p class="text-light">4517 Washington Ave. Manchester, Kentucky 39495</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-phone text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Phone</h5>
+                  <p class="text-light">(629) 555-0129</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-envelope text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Email</h5>
+                  <p class="text-light">hello@agile.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

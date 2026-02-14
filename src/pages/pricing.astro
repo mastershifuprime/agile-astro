@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Pricing - Agile">
+  <Header />
+  
+  <!-- Page Header -->
+  <section class="section pb-0">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="mb-4">Simple, Transparent Pricing</h1>
+        <p class="text-lg text-light max-w-2xl mx-auto">Choose the plan that works best for you. All plans include a 7-day free trial.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section">
+    <div class="container">
+      <div class="row g-4 justify-center">
+        {[
+          { name: "Starter", price: "29", features: ["5 Team Members", "10GB Storage", "Email Support", "Basic Analytics"] },
+          { name: "Professional", price: "79", popular: true, features: ["25 Team Members", "100GB Storage", "Priority Support", "Advanced Analytics", "API Access"] },
+          { name: "Enterprise", price: "199", features: ["Unlimited Members", "Unlimited Storage", "24/7 Support", "Custom Analytics", "API Access", "Custom Integrations"] },
+        ].map((plan) => (
+          <div class="md:col-6 lg:col-4">
+            <div class={`bg-white shadow rounded-2xl p-8 ${plan.popular ? 'border-2 border-primary relative' : ''}`}>
+              {plan.popular && <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-sm px-4 py-1 rounded-full">Most Popular</span>}
+              <h4 class="mb-2">{plan.name}</h4>
+              <div class="mb-6">
+                <span class="text-4xl font-bold text-dark">${plan.price}</span>
+                <span class="text-light">/month</span>
+              </div>
+              <ul class="space-y-3 mb-8">
+                {plan.features.map((feature) => (
+                  <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="/contact" class={`btn w-full ${plan.popular ? 'btn-primary' : 'btn-outline-primary'}`}>
+                Get Started
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-theme-light">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="max-w-3xl mx-auto">
+        {[
+          { q: "Can I cancel anytime?", a: "Yes, you can cancel your subscription at any time. No questions asked." },
+          { q: "Is there a free trial?", a: "Yes, all plans come with a 7-day free trial. No credit card required." },
+          { q: "Do you offer refunds?", a: "Yes, we offer a 30-day money-back guarantee on all plans." },
+        ].map((item) => (
+          <div class="bg-white rounded-lg shadow p-6 mb-4">
+            <h5 class="mb-2">{item.q}</h5>
+            <p class="text-light">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

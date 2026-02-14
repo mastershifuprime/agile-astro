@@ -1,0 +1,23 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  href?: string;
+}
+
+const { title, description, image, href = '/solution' } = Astro.props;
+---
+
+<div class="md:col-6">
+  <div class="px-5 h-full py-10 flex flex-col xl:flex-row items-center justify-center xl:space-x-6 bg-white shadow rounded-lg">
+    <div class="flex-none xl:max-w-[250px] w-full border rounded overflow-hidden border-[rgba(145,96,253,0.1)]">
+      <img loading="lazy" class="w-full h-full" width="252" height="213" src={image} alt="solution-img" />
+    </div>
+    <div class="pb-1 mt-5 xl:mt-0">
+      <h5 class="mb-3"><a href={href}>{title}</a></h5>
+      <p class="mb-5">{description}</p>
+      <a href={href} class="btn btn-outline-primary shadow">Learn More</a>
+    </div>
+  </div>
+</div>

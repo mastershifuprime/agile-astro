@@ -1,0 +1,26 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "to get started 7 days free trial our service" } = Astro.props;
+---
+
+<section class="section">
+  <div class="relative mx-auto max-w-[1540px] overflow-hidden rounded-xl bg-gradient py-12 md:py-[67px]">
+    <div class="container text-center">
+      <h2 class="mb-5 text-white capitalize">{title}</h2>
+      <a class="btn btn-lg border-white bg-white !text-primary hover:bg-primary hover:!text-white hover:border-primary" href="/contact">
+        Get Started
+      </a>
+    </div>
+    <svg class="absolute -left-4 -top-4 text-secondary" width="86" height="79" viewBox="0 0 86 79" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle opacity="0.5" cx="43" cy="36" r="42" stroke="currentColor" stroke-width="2" />
+    </svg>
+    <svg class="absolute -bottom-10 -right-7 text-secondary" width="113" height="98" viewBox="0 0 113 98" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle opacity="0.5" cx="64" cy="49" r="48" stroke="currentColor" stroke-width="2" />
+    </svg>
+  </div>
+</section>

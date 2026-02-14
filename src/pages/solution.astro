@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Solutions - Agile">
+  <Header />
+  
+  <!-- Page Header -->
+  <section class="section pb-0">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="mb-4">Our Solutions</h1>
+        <p class="text-lg text-light max-w-2xl mx-auto">Discover how Agile can transform your business operations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="row g-5">
+        {[
+          { title: "SaaS Management", desc: "Manage all your SaaS applications in one place. Track usage, costs, and compliance.", img: "1" },
+          { title: "Employee Onboarding", desc: "Streamline employee onboarding with automated workflows and app provisioning.", img: "2" },
+          { title: "Cost Optimization", desc: "Identify unused licenses and optimize your software spend.", img: "3" },
+          { title: "Security & Compliance", desc: "Ensure your organization meets security and compliance requirements.", img: "4" },
+        ].map((solution) => (
+          <div class="lg:col-6">
+            <div class="bg-white shadow rounded-2xl p-8 flex flex-col md:flex-row gap-6 items-center">
+              <div class="flex-shrink-0">
+                <img loading="lazy" width="200" height="200" class="rounded-lg" src={`/images/solution/${solution.img}.png`} alt={solution.title} />
+              </div>
+              <div>
+                <h4 class="mb-3">{solution.title}</h4>
+                <p class="text-light mb-4">{solution.desc}</p>
+                <a href="/contact" class="btn btn-outline-primary">Learn More</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
