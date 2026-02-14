@@ -1,0 +1,132 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { title, image, date, author, authorImage, category } = post.data;
+
+// Get related posts (excluding current)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts.filter(p => p.slug !== post.slug).slice(0, 3);
+---
+
+<Layout title={`${title} - Agile Blog`}>
+  <Header />
+  
+  <!-- Page Header -->
+  <section class="section pb-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <ul class="flex items-center space-x-2 text-sm mb-4">
+            <li><a href="/" class="text-light hover:text-primary">Home</a></li>
+            <li class="text-light">/</li>
+            <li><a href="/blog" class="text-light hover:text-primary">Blog</a></li>
+            <li class="text-light">/</li>
+            <li class="text-dark">{title}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm pt-6">
+    <div class="container">
+      <div class="row justify-center">
+        <article class="lg:col-10">
+          <div class="mb-8 lg:mb-14">
+            <img loading="lazy" class="w-full rounded" src={image} alt={title} />
+          </div>
+          
+          {category && (
+            <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              {category}
+            </span>
+          )}
+          
+          <h1 class="text-3xl lg:text-4xl font-semibold mb-6">{title}</h1>
+
+          <div class="flex items-center mb-8 pb-8 border-b border-border">
+            <img loading="lazy" class="mr-4 h-12 w-12 rounded-full" src={authorImage || "/images/blog/profile.png"} alt={author} />
+            <div>
+              <p class="font-semibold text-dark">{author}</p>
+              <p class="text-sm text-light">{date}</p>
+            </div>
+          </div>
+
+          <div class="content prose prose-lg max-w-none">
+            <Content />
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related posts -->
+  {relatedPosts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2 class="h2 mb-12 text-center">Related Posts</h2>
+        <div class="row g-4">
+          {relatedPosts.map((relatedPost) => (
+            <div class="md:col-6 lg:col-4">
+              <div class="rounded-lg overflow-hidden bg-white shadow">
+                <a href={`/blog/${relatedPost.slug}`}>
+                  <img loading="lazy" class="w-full h-48 object-cover" src={relatedPost.data.image} alt={relatedPost.data.title} />
+                </a>
+                <div class="p-6">
+                  <h5 class="mb-3">
+                    <a href={`/blog/${relatedPost.slug}`} class="hover:text-primary">{relatedPost.data.title}</a>
+                  </h5>
+                  <p class="text-light mb-4 line-clamp-2">{relatedPost.data.excerpt}</p>
+                  <div class="flex items-center">
+                    <img loading="lazy" class="h-10 w-10 rounded-full mr-3" src={relatedPost.data.authorImage || "/images/blog/profile.png"} alt={relatedPost.data.author} />
+                    <span class="text-sm text-light">{relatedPost.data.author}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Call to Action -->
+  <section class="section">
+    <div class="container">
+      <div class="lg:col-10 mx-auto">
+        <div class="row gx-4 justify-between items-center">
+          <div class="lg:order-1 order-2 lg:col-7 xl:col-6">
+            <h2 class="has-shape">Get started with 7 days free trial</h2>
+            <p class="mb-6">Lorem ipsum dolor sit amet consectetur corporis consectetur maxime corporis cumque Lorem corporis consectetur.</p>
+            <div class="row gx-3 gy-4">
+              <div class="sm:col-7">
+                <input placeholder="Your Email" class="form-input w-full" type="email" name="email" />
+              </div>
+              <div class="sm:col-5">
+                <button class="btn btn-primary h-full w-full">Subscribe</button>
+              </div>
+            </div>
+          </div>
+          <div class="lg:order-2 order-1 lg:col-5 mb-8 lg:mb-0">
+            <img loading="lazy" class="max-lg:mx-auto lg:w-full" width="400" height="304" src="/images/about/5.png" alt="CTA" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
