@@ -1,0 +1,590 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --color-text: #444444;
+  --color-light: #656565;
+  --color-dark: #221246;
+  --color-primary: #9160FD;
+  --color-secondary: #6049CD;
+  --color-body: #fff;
+  --color-border: #DFDBDB;
+  --color-theme-light: #FAF9FC;
+  --color-theme-dark: #000;
+  --font-primary: "Open Sans", sans-serif;
+  --font-secondary: "Source Serif Pro", sans-serif;
+}
+
+/* ==================== BASE ==================== */
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-body);
+  font-family: var(--font-primary);
+  font-weight: 400;
+  line-height: 1.625;
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.25;
+  color: var(--color-dark);
+}
+
+h1, .h1 {
+  font-size: 2.97rem;
+}
+
+@media (min-width: 768px) {
+  h1, .h1 {
+    font-size: 3.71rem;
+  }
+}
+
+h2, .h2 {
+  font-size: 2.28rem;
+}
+
+@media (min-width: 768px) {
+  h2, .h2 {
+    font-size: 2.86rem;
+  }
+}
+
+h3, .h3 {
+  font-size: 1.76rem;
+}
+
+@media (min-width: 768px) {
+  h3, .h3 {
+    font-size: 2.2rem;
+  }
+}
+
+h4, .h4 {
+  font-size: 1.69rem;
+  font-weight: 500;
+  line-height: 2rem;
+}
+
+h5, .h5 {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+h6, .h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.text-h3-sm {
+  font-size: 1.76rem;
+}
+
+/* ==================== CONTAINER ==================== */
+.container {
+  @apply mx-auto px-8;
+  max-width: 1280px;
+}
+
+/* ==================== HEADER & NAVIGATION ==================== */
+.header {
+  @apply pb-8 pt-7;
+  background-color: var(--color-body);
+}
+
+@media (max-width: 1023px) {
+  .header {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+.navbar {
+  @apply relative flex flex-wrap items-center justify-between;
+}
+
+.navbar-brand {
+  @apply text-xl font-semibold;
+  color: var(--color-dark);
+}
+
+.navbar-brand img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.navbar-nav {
+  @apply text-center;
+}
+
+@media (min-width: 1024px) {
+  .navbar-nav {
+    text-align: left;
+  }
+}
+
+.nav-link {
+  @apply block p-3 text-lg font-normal capitalize transition;
+  line-height: 28px;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+@media (min-width: 1024px) {
+  .nav-link {
+    @apply px-2 py-3;
+  }
+}
+
+.nav-active {
+  color: var(--color-primary) !important;
+}
+
+.nav-dropdown-list {
+  @apply z-10 mx-auto rounded p-4 shadow;
+  background-color: var(--color-body);
+  min-width: 180px;
+  max-width: 350px;
+}
+
+.nav-dropdown-item {
+  @apply mb-2;
+}
+
+.nav-dropdown-link {
+  @apply block py-1 font-semibold transition;
+  color: var(--color-dark);
+}
+
+.nav-dropdown-link:hover {
+  color: var(--color-primary);
+}
+
+/* Nav toggle */
+input#nav-toggle:checked ~ label#show-button {
+  display: none;
+}
+
+input#nav-toggle:checked ~ label#hide-button {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  input#nav-toggle:checked ~ label#hide-button {
+    display: none;
+  }
+}
+
+input#nav-toggle:checked ~ #nav-menu {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  input#nav-toggle:checked ~ #nav-menu {
+    display: flex;
+  }
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+  @apply inline-block rounded-md border border-transparent px-3 py-[10px] text-lg font-semibold transition;
+  color: var(--color-primary);
+}
+
+@media (min-width: 540px) {
+  .btn {
+    @apply px-5;
+  }
+}
+
+.btn-sm {
+  @apply rounded-sm px-4 py-1.5 text-sm;
+}
+
+.btn-primary {
+  @apply border-primary text-white;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  line-height: 28px;
+}
+
+.btn-outline-primary {
+  @apply border bg-transparent;
+  border-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+.btn-outline-primary:hover {
+  @apply text-white;
+  background-color: var(--color-primary);
+}
+
+/* ==================== SECTIONS ==================== */
+.section {
+  @apply pb-14;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-bottom: 7.5rem;
+  }
+}
+
+.section-sm {
+  @apply pb-10;
+}
+
+@media (min-width: 1024px) {
+  .section-sm {
+    padding-bottom: 5.67rem;
+  }
+}
+
+.has-bg {
+  @apply mx-auto rounded-xl py-16;
+  background-color: var(--color-theme-light);
+  max-width: 1560px;
+}
+
+@media (min-width: 1024px) {
+  .has-bg {
+    padding-top: 81px;
+    padding-bottom: 81px;
+  }
+}
+
+.section-title {
+  @apply mx-auto mb-5 text-center;
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    @apply mb-14;
+  }
+}
+
+.section-title .main-title {
+  @apply mb-2 inline-block rounded px-5 py-2 text-sm font-semibold capitalize text-white;
+  background-color: var(--color-primary);
+}
+
+/* ==================== FORMS ==================== */
+.form-input {
+  @apply w-full rounded-lg border-transparent bg-white px-6 py-4 shadow;
+  color: var(--color-dark);
+}
+
+.form-input::placeholder {
+  color: var(--color-light);
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  --tw-ring-color: transparent;
+}
+
+.form-label {
+  @apply mb-4 block text-left text-lg font-normal;
+  color: var(--color-dark);
+  font-family: var(--font-primary);
+}
+
+/* ==================== COMPONENTS ==================== */
+
+/* Has Shape */
+.has-shape {
+  @apply relative;
+}
+
+.has-shape::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.1em;
+  height: 1rem;
+  width: 160px;
+  background-image: url('/images/shape.svg');
+  background-repeat: no-repeat;
+}
+
+/* Social Icons */
+.social-icons {
+  @apply space-x-4;
+}
+
+.social-icons li {
+  @apply inline-block;
+}
+
+.social-icons li a {
+  @apply flex h-9 w-9 items-center justify-center rounded text-center text-white;
+  background-color: var(--color-primary);
+  line-height: 2.25rem;
+}
+
+.social-icons li a svg {
+  @apply h-5 w-5;
+}
+
+/* List Style */
+.list-group {
+  @apply space-y-5;
+}
+
+.list-group.list-group-sm {
+  @apply space-y-3;
+}
+
+.list-group.list-group-lg {
+  @apply space-y-7;
+}
+
+.list-group.list-group-lg .list-item {
+  @apply pl-8;
+}
+
+.list-group.list-group-lg .list-item::before {
+  @apply h-3 w-3;
+}
+
+.list-group .list-item {
+  @apply relative pl-6 text-lg;
+}
+
+.list-group .list-item::before {
+  content: "";
+  @apply absolute left-0 top-[10px] h-2 w-2 rounded-full;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+}
+
+/* Pricing Popular */
+.popular {
+  @apply relative overflow-hidden bg-white p-10 shadow;
+  border-color: var(--color-primary);
+}
+
+@media (min-width: 1024px) {
+  .popular {
+    margin-top: -9%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .popular {
+    transform: scale(1.05);
+  }
+}
+
+.popular::after {
+  content: " Most Popular";
+  @apply absolute block w-[250px] rotate-45 p-2 text-center font-semibold text-white;
+  background-color: var(--color-primary);
+  right: -63px;
+  top: 5%;
+}
+
+/* Swiper */
+.swiper-pagination-bullet {
+  @apply h-[10px] w-[10px] rounded-none border bg-transparent opacity-100;
+  border-color: var(--color-primary);
+}
+
+.swiper-pagination-bullet-active {
+  @apply h-4 w-4;
+  background-color: var(--color-primary);
+}
+
+.logo-animation,
+.swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+/* Tab */
+.tab {
+  @apply overflow-hidden rounded-lg border;
+  border-color: var(--color-border);
+}
+
+.tab-nav {
+  @apply m-0 flex list-none border-b bg-white;
+  border-color: var(--color-border);
+}
+
+.tab-nav-item {
+  @apply my-0 cursor-pointer border-b-[3px] px-8 py-2 text-lg opacity-80;
+  border-color: var(--color-border);
+  color: var(--color-dark);
+}
+
+.tab-nav-item.active {
+  @apply border-b-[3px] opacity-100;
+  border-color: var(--color-dark);
+}
+
+.tab-content-panel {
+  @apply hidden p-8;
+}
+
+.tab-content-panel p {
+  @apply mb-0;
+}
+
+.tab-content-panel.active {
+  @apply block;
+}
+
+/* Accordion */
+.accordion {
+  @apply mb-6 overflow-hidden rounded-lg border bg-white;
+  border-color: var(--color-border);
+}
+
+.accordion-header {
+  @apply flex cursor-pointer items-center justify-between px-8 py-4 text-lg;
+  color: var(--color-dark);
+}
+
+.accordion-icon {
+  @apply h-[.8em] w-[.8em] transition-transform duration-200;
+  transform: rotate(-90deg);
+}
+
+.accordion-content {
+  @apply max-h-0 overflow-hidden px-8 py-0;
+}
+
+.accordion.active .accordion-icon {
+  transform: rotate(0);
+}
+
+.accordion.active .accordion-content {
+  max-height: 100vh;
+}
+
+/* Content/Prose */
+.content {
+  @apply prose max-w-none;
+}
+
+.content blockquote {
+  @apply relative rounded-lg border-l-[10px] bg-white px-12 py-10 shadow;
+  border-color: var(--color-primary);
+  font-family: var(--font-secondary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: normal;
+  color: var(--color-dark);
+}
+
+.content ul li {
+  @apply mb-5 text-lg;
+  color: var(--color-dark);
+}
+
+.content ul li::marker {
+  @apply text-xl;
+  color: var(--color-primary);
+}
+
+/* ==================== GRID GUTTERS ==================== */
+.g-0 {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+}
+
+.g-1 {
+  --bs-gutter-x: 0.25rem;
+  --bs-gutter-y: 0.25rem;
+}
+
+.g-2 {
+  --bs-gutter-x: 0.5rem;
+  --bs-gutter-y: 0.5rem;
+}
+
+.g-3 {
+  --bs-gutter-x: 1rem;
+  --bs-gutter-y: 1rem;
+}
+
+.g-4 {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 1.5rem;
+}
+
+.g-5 {
+  --bs-gutter-x: 3rem;
+  --bs-gutter-y: 3rem;
+}
+
+.gx-0 {
+  --bs-gutter-x: 0;
+}
+
+.gx-3 {
+  --bs-gutter-x: 1rem;
+}
+
+.gx-4 {
+  --bs-gutter-x: 1.5rem;
+}
+
+.gy-0 {
+  --bs-gutter-y: 0;
+}
+
+.gy-4 {
+  --bs-gutter-y: 1.5rem;
+}
+
+/* ==================== UTILITIES ==================== */
+.bg-body {
+  background-color: var(--color-body);
+}
+
+.bg-theme-light {
+  background-color: var(--color-theme-light);
+}
+
+.text-dark {
+  color: var(--color-dark);
+}
+
+.text-light {
+  color: var(--color-light);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.border-border {
+  border-color: var(--color-border);
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+/* Animation for logos */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
