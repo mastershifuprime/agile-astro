@@ -1,10 +1,14 @@
 ---
 import Base from '@/layouts/Base.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import { getCollection } from 'astro:content';
 
-
+const jobs = await getCollection('careers', ({ data }) => !data.draft);
+const job = jobs[0]; // Show the first job as the featured position
+const { data } = job;
+const { Content } = await job.render();
 ---
-<Base title="Career Details - Agile">
-  
+<Base title={`${data.title} - Agile`}>
   
 <div class="relative bg-theme-light mb-8 lg:mb-16 py-16 flex justify-center">
   <svg class="absolute text-primary bottom-0 left-0" width="108" height="59" viewBox="0 0 108 59" fill="none"
@@ -14,9 +18,8 @@ import Base from '@/layouts/Base.astro';
       fill="currentColor" fill-opacity="0.5" />
   </svg>
   <div class="container text-center">
-
     <h1 class="text-center relative inline-block font-bold">
-      Career Details
+      {data.title}
       <svg class="hidden sm:block text-primary -top-4 -right-10 absolute" width="83" height="50" viewBox="0 0 83 50"
         fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -32,8 +35,14 @@ import Base from '@/layouts/Base.astro';
           d="M16.252 8.18429C15.6218 8.93539 15.0565 9.74472 14.5756 10.6064C14.3612 10.99 13.9844 11.8052 13.9259 12.5043C13.8609 13.2492 14.111 13.8776 14.7543 14.2085C15.6087 14.6474 16.291 14.6017 16.8173 14.3362C17.3241 14.0812 17.7205 13.5802 17.9706 12.9083C18.4482 11.6243 18.3767 9.66182 18.1266 8.54192C18.7991 7.83918 19.5365 7.20191 20.326 6.63537C26.2063 2.416 34.8319 3.97183 41.4691 10.2807C43.792 12.4895 44.9096 17.1284 45.4911 22.1334C46.3976 29.9263 45.881 38.6302 45.8095 41.1803C45.7933 41.81 45.8517 42.1837 45.8842 42.2584C46.0369 42.6256 46.3066 42.721 46.495 42.7572C46.7679 42.8065 46.9855 42.7539 47.161 42.6618C47.3981 42.5354 47.5931 42.313 47.6841 41.9699C47.7328 41.7804 47.7458 41.5165 47.7393 41.2352C47.7328 41.0401 47.6938 40.8269 47.7328 40.6871C47.9862 39.7916 48.2916 38.9171 48.5905 38.0364C49.5878 35.0758 50.8776 32.3013 52.3103 29.5302C56.8619 20.725 61.264 11.4213 68.7264 4.71272C69.0611 4.41169 69.0936 3.89122 68.7947 3.5517C68.4991 3.21218 67.9857 3.18124 67.6479 3.4826C60.036 10.3237 55.5136 19.7876 50.8711 28.7673C49.6528 31.1245 48.5352 33.4851 47.6061 35.9542C47.7003 31.5864 47.6645 25.5405 46.8751 20.191C46.1733 15.4334 44.8381 11.2288 42.5802 9.08146C35.3094 2.17024 25.8262 0.671014 19.3871 5.29341C18.6983 5.78822 18.0421 6.33238 17.4313 6.9226C14.0624 0.762155 6.85002 -1.70698 0.475894 1.23951C0.0665469 1.42803 -0.112133 1.91626 0.0730476 2.32915C0.261477 2.74204 0.742281 2.92431 1.15163 2.7358C6.89549 0.0808001 13.4093 2.45022 16.252 8.18429ZM16.7231 10.2468C16.4599 10.6231 16.2163 11.0133 15.9889 11.4167C15.8687 11.6332 15.6607 12.0493 15.573 12.4566C15.5535 12.552 15.5503 12.7014 15.5503 12.7705C15.7745 12.8824 15.9499 12.9363 16.0928 12.8636C16.2715 12.7741 16.3625 12.5636 16.4502 12.3283C16.6711 11.7381 16.7426 10.9557 16.7231 10.2468Z"
           fill="currentColor" />
       </svg>
-
     </h1>
+    <div class="flex flex-wrap justify-center gap-3 mt-4 text-sm text-light">
+      <span class="flex items-center gap-1"><i class="fa-solid fa-building"></i> {data.department}</span>
+      <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> {data.location}</span>
+      <span class="flex items-center gap-1"><i class="fa-solid fa-clock"></i> {data.type}</span>
+      <span class="flex items-center gap-1"><i class="fa-solid fa-briefcase"></i> {data.experience}</span>
+      {data.salary && <span class="flex items-center gap-1"><i class="fa-solid fa-dollar-sign"></i> {data.salary}</span>}
+    </div>
   </div>
 
   <svg class="absolute top-0 right-0" width="102" height="65" viewBox="0 0 102 65" fill="none"
@@ -47,52 +56,40 @@ import Base from '@/layouts/Base.astro';
 <section class="section pt-2">
     <div class="container">
         <div class="lg:col-10 mx-auto">
-            <div>
-                <h2 class="mb-6">About agile :</h2>
-                <p class="text-ligh text-lg">Agile (https://www.agile.com) is a comprehensive SaaS Operations (SaaSOps)
-                    management platform for IT
-                    teams. It helps IT teams Discover, Manage, Secure, and Comply across multiple SaaS applications, all
-                    from a single dashboard. In short, Agile puts the IT team back in control of their new SaaS-ified
-                    landscape.</p>
-            </div>
+            {data.about && (
+              <div>
+                  <h2 class="mb-6">About agile :</h2>
+                  <p class="text-ligh text-lg">{data.about}</p>
+              </div>
+            )}
 
-            <div class="mt-9">
-                <h2 class="mb-6">What we need :</h2>
-                <ul class="list-group text-light">
-                    <li class="list-item">7+ years in customer success, account management, or related field, with a
-                        focus on enterprise customers.</li>
-                    <li class="list-item">Experience in IT, Procurement, or SaaS space, working with cross-functional
-                        teams on cloud-based software purchasing, deployment, and/or management.</li>
-                    <li class="list-item">Proven aptitude to collaborate and build strong relationships with customers
-                        and internal stakeholders.</li>
-                    <li class="list-item">Excellent verbal and written communication skills.</li>
-                    <li class="list-item">Excellent analytical and problem-solving skills.</li>
-                    <li class="list-item">Past experience working for an early stage startup is an added advantage. 
-                    </li>
-                    <li class="list-item">Impeccable communication to articulate intricate concepts as well as tactfully
-                        and effectively assist, convince and delight diverse stakeholders.</li>
-                </ul>
-            </div>
+            {data.requirements && data.requirements.length > 0 && (
+              <div class="mt-9">
+                  <h2 class="mb-6">What we need :</h2>
+                  <ul class="list-group text-light">
+                      {data.requirements.map((req) => (
+                          <li class="list-item">{req}</li>
+                      ))}
+                  </ul>
+              </div>
+            )}
 
-            <div class="mt-9">
-                <h2 class="mb-6">Responsibilities:</h2>
-                <ul class="list-group text-light">
-                    <li class="list-item">Manage our Marketing tech stack to help the team execute, track, and optimize
-                        on a wide range of marketing campaigns, including email campaigns, webinars, advertising, and
-                        events.</li>
-                    <li class="list-item">Be on the lookout for the best tools and platforms in the market which would
-                        help the company in streamlining their Sales and Marketing processes. </li>
-                    <li class="list-item">Proven aptitude to collaborate and build strong relationships with customers
-                        and internal stakeholders.</li>
-                    <li class="list-item">Support the marketing team on product launches and field marketing initiatives
-                        . </li>
-                    <li class="list-item">Excellent analytical and problem-solving skills.</li>
-                    <li class="list-item">Past experience working for an early stage startup is an added advantage . 
-                    </li>
-                    <li class="list-item">Impeccable communication to articulate intricate concepts as well as tactfully
-                        and effectively assist, convince and delight diverse stakeholders .</li>
-                </ul>
-            </div>
+            {data.responsibilities && data.responsibilities.length > 0 && (
+              <div class="mt-9">
+                  <h2 class="mb-6">Responsibilities:</h2>
+                  <ul class="list-group text-light">
+                      {data.responsibilities.map((resp) => (
+                          <li class="list-item">{resp}</li>
+                      ))}
+                  </ul>
+              </div>
+            )}
+
+            {!data.requirements && !data.responsibilities && (
+              <div class="prose prose-lg">
+                  <Content />
+              </div>
+            )}
 
             <div class="mt-9">
                 <h2 class="mb-6 text-center">Apply for this Job</h2>
@@ -153,10 +150,8 @@ import Base from '@/layouts/Base.astro';
                                                     <span class="capitalize text-sm text-center mt-3">attach file</span>
                                                 </div>
                                                 <p class="mt-3 text-light text-sm text-center">(File types: pdf, doc,
-                                                    docx,
-                                                    txt, rtf)</p>
+                                                    docx, txt, rtf)</p>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="lg:col-6">
@@ -179,8 +174,7 @@ import Base from '@/layouts/Base.astro';
                                                     <span class="capitalize text-sm text-center mt-3">attach file</span>
                                                 </div>
                                                 <p class="mt-3 text-light text-sm text-center">(File types: pdf, doc,
-                                                    docx,
-                                                    txt, rtf)</p>
+                                                    docx, txt, rtf)</p>
                                             </div>
                                         </div>
                                     </div>
@@ -204,9 +198,10 @@ import Base from '@/layouts/Base.astro';
                                 </div>
                             </div>
 
-                            <div class="text-center" aria-label="submit"><button aria-label="submit" type="submit"
-                                    class="btn-lg btn-primary font-semibold capitalize mx-auto">submit
-                                    application</button></div>
+                            <div class="text-center" aria-label="submit">
+                                <button aria-label="submit" type="submit"
+                                    class="btn-lg btn-primary font-semibold capitalize mx-auto">submit application</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -215,33 +210,6 @@ import Base from '@/layouts/Base.astro';
     </div>
 </section>
 
-<!-- Call to actions -->
-<section class="section">
-  <div class="container">
-    <div class="lg:col-10 mx-auto">
-      <div class="row gx-4 justify-between items-center">
-        <div class="lg:order-1 order-2 lg:col-7 xl:col-6">
-          <h2 class="has-shape">Get started 7 days free trial</h2>
-          <p class="mb-6">Lorem ipsum dolor sit amet consectetur corporis consectetur maxime corporis cumqLorcorporis
-            consectetur.</p>
-          <div class="row gx-3 gy-4">
-            <div class="sm:col-7">
-              <input placeholder="Your Email" class="form-input w-full" type="email" name="email" id="email" />
-            </div>
-            <div class="sm:col-5">
-              <button aria-label="modal-open" class="btn btn-primary h-full">Know About Us</button>
-            </div>
-          </div>
-        </div>
-        <div class="lg:order-2 order-1 lg:col-5">
-          <img loading="lazy" class="max-lg:mx-auto lg:w-full" width="400" height="304" src="/images/about/5.png"
-            alt="about-img">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /Call to actions -->
+<CallToAction />
 
-  
 </Base>

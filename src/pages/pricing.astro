@@ -5,68 +5,10 @@ import CallToAction from '@/components/CallToAction.astro';
 import { getEntry } from 'astro:content';
 
 const page = await getEntry('pages', 'pricing');
-
-// Pricing plans data (could also be moved to content collection)
-const plans = [
-  {
-    name: "Basic",
-    monthlyPrice: 49,
-    yearlyPrice: 588,
-    description: "Get started with...",
-    features: [
-      "2 Mailboxes",
-      "Docs site",
-      "Add up to 25 users",
-      "Customer properties",
-      "In-app messaging (See Pricing)",
-      "Beacon help widget",
-      "Custom reports",
-      "Automated workflows",
-      "API and 50+ integrations"
-    ],
-    popular: false
-  },
-  {
-    name: "Standard",
-    monthlyPrice: 99,
-    yearlyPrice: 1118,
-    description: "All Standard features and...",
-    features: [
-      "5 Mailboxes",
-      "2 Docs site",
-      "No maximum user count",
-      "Custom fields",
-      "Teams",
-      "Advanced permissions",
-      "Unlimited reporting history",
-      "25 extra light users",
-      "Enterprise security",
-      "HIPAA compliance",
-      "API rate limit increase"
-    ],
-    popular: true
-  },
-  {
-    name: "Premium",
-    monthlyPrice: 199,
-    yearlyPrice: 2388,
-    description: "All Plus features and...",
-    features: [
-      "25 Mailboxes",
-      "10 Docs sites",
-      "Starts with 10 users",
-      "50 free light users",
-      "Tiered discounts",
-      "Enterprise security",
-      "HIPAA compliance",
-      "API rate limit increase",
-      "Additional light users"
-    ],
-    popular: false
-  }
-];
+const { data } = page;
+const plans = data.plans || [];
 ---
-<Base title="Pricing - Agile">
+<Base title={data.meta_title || data.title}>
   
 <PageHeader title="Pricing" />
 
@@ -74,8 +16,7 @@ const plans = [
     <div class="container">
         <div class="lg:col-7 mx-auto text-center">
             <h2>Pricing plans built for your team.</h2>
-            <p class="md:px-20 mb-7">When referring to Lorem ipsum, expressions are used, namely fill
-                fictitious text, blind text or text: in short, its meaning can</p>
+            <p class="md:px-20 mb-7">{data.description}</p>
             <div class="bg-primary/40 p-[5px] inline-block rounded text-dark">
                 <button data-package="yearly" class="text-base py-px px-5 btn">Annual</button>
                 <button data-package="monthly" class="btn-primary btn text-base py-px px-5">Monthly</button>
@@ -90,7 +31,7 @@ const plans = [
                             <div class="border-b border-primary text-center">
                                 <h5 class="mb-5">{plan.name}</h5>
                                 <h2 class="font-semibold">
-                                    <span data-price-yearly={plan.yearlyPrice} data-price-monthly={plan.monthlyPrice}>${plan.monthlyPrice}</span> USD
+                                    <span data-price-yearly={plan.yearly_price} data-price-monthly={plan.monthly_price}>${plan.monthly_price}</span> USD
                                 </h2>
                                 <p class="text-base text-light capitalize mb-3">per user per month</p>
                             </div>

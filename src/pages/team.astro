@@ -2,10 +2,13 @@
 import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import CallToAction from '@/components/CallToAction.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 const teamMembers = await getCollection('team');
 const sortedTeam = teamMembers.sort((a, b) => a.data.order - b.data.order);
+
+const teamPage = await getEntry('pages', 'team');
+const testimonials = teamPage?.data?.testimonials || [];
 ---
 <Base title="Team - Agile">
   
@@ -71,6 +74,7 @@ const sortedTeam = teamMembers.sort((a, b) => a.data.order - b.data.order);
 </section>
 
 <!-- Testimonials Section -->
+{testimonials.length > 0 && (
 <section class="section">
   <div class="container">
     <div class="lg:col-6 mx-auto mb-12">
@@ -78,33 +82,25 @@ const sortedTeam = teamMembers.sort((a, b) => a.data.order - b.data.order);
     </div>
     <div class="swiper testimonial-swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="flex max-w-[800px] flex-col items-center justify-center mx-auto">
-            <img loading="lazy" width="120" height="120" class="mb-5 flex-none rounded" src="/images/team/1.png"
-              alt="testimonial">
-            <blockquote class="text-center mb-6 text-xl italic">
-              "Working at Agile has been an incredible journey. The collaborative culture and innovative projects make every day exciting."
-            </blockquote>
-            <h5 class="text-primary">Wade Warren</h5>
-            <p class="text-light">Medical Assistant</p>
+        {testimonials.map((testimonial) => (
+          <div class="swiper-slide">
+            <div class="flex max-w-[800px] flex-col items-center justify-center mx-auto">
+              <img loading="lazy" width="120" height="120" class="mb-5 flex-none rounded" src={testimonial.image}
+                alt={testimonial.name}>
+              <blockquote class="text-center mb-6 text-xl italic">
+                "{testimonial.quote}"
+              </blockquote>
+              <h5 class="text-primary">{testimonial.name}</h5>
+              <p class="text-light">{testimonial.role}</p>
+            </div>
           </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="flex max-w-[800px] flex-col items-center justify-center mx-auto">
-            <img loading="lazy" width="120" height="120" class="mb-5 flex-none rounded" src="/images/team/2.png"
-              alt="testimonial">
-            <blockquote class="text-center mb-6 text-xl italic">
-              "The growth opportunities here are unmatched. I've learned more in my first year than anywhere else."
-            </blockquote>
-            <h5 class="text-primary">Annette Black</h5>
-            <p class="text-light">Marketing Coordinator</p>
-          </div>
-        </div>
+        ))}
       </div>
       <div class="swiper-pagination"></div>
     </div>
   </div>
 </section>
+)}
 
 <CallToAction />
   

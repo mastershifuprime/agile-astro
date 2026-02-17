@@ -14,7 +14,7 @@ const blog = defineCollection({
   }),
 });
 
-// Pages collection (about, pricing, solution, contact)
+// Pages collection (about, pricing, solution, contact, careers)
 const pages = defineCollection({
   type: 'content',
   schema: z.object({
@@ -22,6 +22,63 @@ const pages = defineCollection({
     meta_title: z.string().optional(),
     description: z.string().optional(),
     draft: z.boolean().default(false),
+
+    // About page structured data
+    mission: z.string().optional(),
+    quote: z.string().optional(),
+    stats: z.array(z.object({
+      value: z.string(),
+      label: z.string(),
+    })).optional(),
+    cards: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })).optional(),
+    features: z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      items: z.array(z.string()),
+      image: z.string().optional(),
+    }).optional(),
+    mission_section: z.object({
+      title: z.string(),
+      description: z.string(),
+      image: z.string().optional(),
+    }).optional(),
+
+    // Pricing page structured data
+    plans: z.array(z.object({
+      name: z.string(),
+      monthly_price: z.number(),
+      yearly_price: z.number(),
+      description: z.string(),
+      popular: z.boolean().default(false),
+      features: z.array(z.string()),
+    })).optional(),
+
+    // Solution page structured data
+    sections: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+      items: z.array(z.string()).optional(),
+      image: z.string(),
+      image_position: z.enum(['left', 'right']).default('right'),
+    })).optional(),
+
+    // Careers page structured data
+    benefits: z.array(z.object({
+      icon: z.string(),
+      title: z.string(),
+      description: z.string(),
+    })).optional(),
+
+    // Team page structured data
+    testimonials: z.array(z.object({
+      name: z.string(),
+      role: z.string(),
+      image: z.string(),
+      quote: z.string(),
+    })).optional(),
   }),
 });
 
@@ -71,6 +128,10 @@ const careers = defineCollection({
     salary: z.string().optional(),
     posted: z.string(),
     draft: z.boolean().default(false),
+    // Structured requirements and responsibilities
+    requirements: z.array(z.string()).optional(),
+    responsibilities: z.array(z.string()).optional(),
+    about: z.string().optional(),
   }),
 });
 
@@ -83,6 +144,8 @@ const webinars = defineCollection({
     time: z.string(),
     image: z.string(),
     excerpt: z.string(),
+    video_url: z.string().optional(),
+    learn_items: z.array(z.string()).optional(),
     speakers: z.array(z.object({
       name: z.string(),
       role: z.string(),

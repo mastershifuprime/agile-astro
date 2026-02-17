@@ -5,8 +5,9 @@ import CallToAction from '@/components/CallToAction.astro';
 import { getEntry } from 'astro:content';
 
 const page = await getEntry('pages', 'about');
+const { data } = page;
 ---
-<Base title="About Us - Agile">
+<Base title={data.meta_title || data.title}>
   
 <PageHeader title="ABOUT US" />
 
@@ -14,8 +15,7 @@ const page = await getEntry('pages', 'about');
   <div class="container">
     <div class="lg:col-10 mx-auto relative">
       <h3 class="text-center has-shape mb-12 lg:mb-28">
-        "Our mission to revolutionize the workplace by improving the function of IT, enabling businesses to achieve
-        greater success thriving and efficiency."
+        "{data.mission}"
 
         <svg class="hidden lg:block absolute top-0 -right-[52px]" width="72" height="89" viewBox="0 0 72 89" fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -31,54 +31,41 @@ const page = await getEntry('pages', 'about');
 
     <div class="relative">
       <img class="rounded-2xl mx-auto" width="920" height="467" src="/images/about/2.png" alt="about-img">
-      <div class="mt-4 lg:mt-9">
-        <div class="row g-4">
-          <div class="lg:col-6">
-            <div
-              class="h-full xl:h-auto xl:absolute -bottom-[15%] right-[78%] xl:max-w-[409px] bg-white shadow p-6 rounded ">
-              <h5 class="mb-4">Established to cater to the requirements of contemporary IT, SaaSby was created.</h5>
-              <p>Lorem ipsum dolor sit am consectetumrporis consectetur corporis consectetur maxime corporis cumque
-                Lorem.</p>
-            </div>
-          </div>
-          <div class="lg:col-6">
-            <div
-              class="h-full xl:h-auto xl:absolute -top-[15%] left-[78%] bg-white shadow xl:max-w-[409px] p-6 rounded ">
-              <h5 class="mb-4">SaaSby was founded to address the needs of Modern IT</h5>
-              <p>Lorem ipsum dolor sit amet consectetumrporis consectetur corporis consectetur maxime corporis cumque
-                Lorem.</p>
-            </div>
+      {data.cards && (
+        <div class="mt-4 lg:mt-9">
+          <div class="row g-4">
+            {data.cards.map((card, i) => (
+              <div class="lg:col-6">
+                <div class={`h-full xl:h-auto xl:absolute bg-white shadow p-6 rounded ${i === 0 ? '-bottom-[15%] right-[78%] xl:max-w-[409px]' : '-top-[15%] left-[78%] bg-white shadow xl:max-w-[409px]'}`}>
+                  <h5 class="mb-4">{card.title}</h5>
+                  <p>{card.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
+
     <div class="xl:max-w-[920px] mx-auto">
       <p class="mt-[88px] text-xl text-light px-6">
-        <strong>"As the market pioneer in Zero Touch SaaS operations, our aim is to optimize work processes by elevating
-          the importance of IT."</strong>
+        <strong>"{data.quote}"</strong>
       </p>
-      <div class="border border-primary/30 mt-12 rounded-xl p-5 lg:p-6">
-        <div class="row g-3 lg:g-4 justify-center">
-          <div class="md:col-6 lg:col-4 text-center">
-            <div class="font-semibold rounded-xl px-3 xl:px-6 py-9 bg-theme-light">
-              <h1 class="mb-2"><span data-counter data-target="11" data-speed="11">0</span>+</h1>
-              <h5>Years of SaaS Expertise</h5>
-            </div>
-          </div>
-          <div class="md:col-6 lg:col-4 text-center">
-            <div class="font-semibold rounded-xl px-3 xl:px-6 py-9 bg-theme-light">
-              <h1 class="mb-2"><span data-counter data-target="330" data-speed="20">0</span>+</h1>
-              <h5>Employees</h5>
-            </div>
-          </div>
-          <div class="md:col-6 lg:col-4 text-center">
-            <div class="font-semibold rounded-xl px-3 xl:px-6 py-9 bg-theme-light">
-              <h1 class="mb-2"><span data-counter data-target="16" data-speed="16">0</span></h1>
-              <h5>Office Hubs</h5>
-            </div>
+
+      {data.stats && (
+        <div class="border border-primary/30 mt-12 rounded-xl p-5 lg:p-6">
+          <div class="row g-3 lg:g-4 justify-center">
+            {data.stats.map((stat) => (
+              <div class="md:col-6 lg:col-4 text-center">
+                <div class="font-semibold rounded-xl px-3 xl:px-6 py-9 bg-theme-light">
+                  <h1 class="mb-2">{stat.value}</h1>
+                  <h5>{stat.label}</h5>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   </div>
 </section>
@@ -92,36 +79,41 @@ const page = await getEntry('pages', 'about');
       </div>
 
       <div class="mt-11">
-        <div class="row gy-4 lg:gy-0 items-center">
-          <div class="lg:col-6">
-            <img class="rounded-2xl w-full shadow" width="736" height="430" src="/images/about/3.png"
-              alt="Building the future of SaaS made Reoperations together">
+        {data.features && (
+          <div class="mb-12 lg:mb-0">
+            <div class="row gy-4 lg:gy-0 items-center">
+              <div class="lg:col-6">
+                <img class="rounded-2xl w-full shadow" width="736" height="430" src={data.features.image}
+                  alt="Building the future of SaaS">
+              </div>
+              <div class="lg:col-6">
+                <h3 class="mb-3 font-semibold">{data.features.title}</h3>
+                {data.features.description && <p class="mb-8">{data.features.description}</p>}
+                {data.features.items && (
+                  <ul class="list-group">
+                    {data.features.items.map((item) => (
+                      <li class="list-item">{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
           </div>
-          <div class="lg:col-6">
-            <h3 class="mb-3 font-semibold">Building the future of SaaS made Reoperations together.</h3>
-            <p class="mb-8">Lorem ipsum dolor sit amet consectetur maxime corporis nsectetur corporis consectetur maxime
-              corporis cumque Lorem ipsum amet consectetur maxime corporis.</p>
-            <ul class="list-group">
-              <li class="list-item">Automate SaaS procurement</li>
-              <li class="list-item">Consolidate apps with overlapping functions</li>
-              <li class="list-item">On-boarding: Give access to all apps in one go</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        )}
 
-      <div class="mt-10 lg:mt-[4.6rem]">
-        <div class="row gy-3 lg:gy-0 flex-row-reverse items-center">
-          <div class="lg:col-6">
-            <img class="rounded-2xl w-full shadow" width="736" height="430" src="/images/about/4.png" alt="about-img">
+        {data.mission_section && (
+          <div class="mt-10 lg:mt-[4.6rem]">
+            <div class="row gy-3 lg:gy-0 flex-row-reverse items-center">
+              <div class="lg:col-6">
+                <img class="rounded-2xl w-full shadow" width="736" height="430" src={data.mission_section.image} alt="about-img">
+              </div>
+              <div class="lg:col-6">
+                <h3 class="mb-3 font-semibold">{data.mission_section.title}</h3>
+                <p class="mb-8">{data.mission_section.description}</p>
+              </div>
+            </div>
           </div>
-          <div class="lg:col-6">
-            <h3 class="mb-3 font-semibold">Our mission is to accelerate the world's transition to SaaS in a
-              option better of experience.</h3>
-            <p class="mb-8">Lorem ipsum dolor sit amet consectetur maxime corporis nsectetur corporis consectetur maxime
-              corporis cumque Lorem ipsum amet consectetur maxime corporis.</p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   </div>

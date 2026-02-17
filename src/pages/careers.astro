@@ -2,11 +2,15 @@
 import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import CallToAction from '@/components/CallToAction.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+
+const careersPage = await getEntry('pages', 'careers');
+const { data } = careersPage;
+const benefits = data.benefits || [];
 
 const jobs = await getCollection('careers', ({ data }) => !data.draft);
 ---
-<Base title="Careers - Agile">
+<Base title={data.meta_title || data.title}>
   
 <PageHeader title="Careers" />
 
@@ -21,84 +25,18 @@ const jobs = await getCollection('careers', ({ data }) => !data.draft);
     </div>
 
     <div class="g-4 row mt-8">
-      <div class="md:col-6 lg:col-4">
-        <div class="rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
-          <div
-            class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
-            <i class="fa-solid fa-coins"></i>
+      {benefits.map((benefit) => (
+        <div class="md:col-6 lg:col-4">
+          <div class="rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
+            <div
+              class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
+              <i class={benefit.icon}></i>
+            </div>
+            <h3 class="mb-3 text-h3-sm">{benefit.title}</h3>
+            <p>{benefit.description}</p>
           </div>
-          <h3 class="mb-3 text-h3-sm">Financial Benefits</h3>
-          <p>
-            Lorem ipsum dolor cnsectetonmaxime corporis consectetur corporis
-            temaxime max maxime mondocorporii.
-          </p>
         </div>
-      </div>
-      <div class="md:col-6 lg:col-4">
-        <div class="h-full rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
-          <div
-            class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
-            <i class="fa-solid fa-person-running"></i>
-          </div>
-          <h3 class="mb-3 text-h3-sm">Freedom and Flexibility</h3>
-          <p>
-            Lorem ipsum dolor cnsectetonmaxime corporis consectetur corporis
-            temaxime max maxime mondocorporii.
-          </p>
-        </div>
-      </div>
-      <div class="md:col-6 lg:col-4">
-        <div class="h-full rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
-          <div
-            class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
-            <i class="fa-solid fa-user-pen"></i>
-          </div>
-          <h3 class="mb-3 text-h3-sm">Learning Environment</h3>
-          <p>
-            Lorem ipsum dolor cnsectetonmaxime corporis consectetur corporis
-            temaxime max maxime mondocorporii.
-          </p>
-        </div>
-      </div>
-      <div class="md:col-6 lg:col-4">
-        <div class="h-full rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
-          <div
-            class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
-            <i class="fa-solid fa-award"></i>
-          </div>
-          <h3 class="mb-3 text-h3-sm">Reward & Recognition</h3>
-          <p>
-            Lorem ipsum dolor cnsectetonmaxime corporis consectetur corporis
-            temaxime max maxime mondocorporii.
-          </p>
-        </div>
-      </div>
-      <div class="md:col-6 lg:col-4">
-        <div class="h-full rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
-          <div
-            class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
-            <i class="fa-solid fa-briefcase-medical"></i>
-          </div>
-          <h3 class="mb-3 text-h3-sm">Health & Wellness</h3>
-          <p>
-            Lorem ipsum dolor cnsectetonmaxime corporis consectetur corporis
-            temaxime max maxime mondocorporii.
-          </p>
-        </div>
-      </div>
-      <div class="md:col-6 lg:col-4">
-        <div class="h-full rounded px-6 py-8 text-center shadow hover:shadow-lg transition-all duration-400">
-          <div
-            class="mx-auto mb-7 flex h-20 w-20 items-center justify-center rounded bg-white text-5xl text-primary shadow">
-            <i class="fa-solid fa-building"></i>
-          </div>
-          <h3 class="mb-3 text-h3-sm">Hybrid Environment</h3>
-          <p>
-            Lorem ipsum dolor cnsectetonmaxime corporis consectetur corporis
-            temaxime max maxime mondocorporii.
-          </p>
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
