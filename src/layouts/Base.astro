@@ -1,13 +1,23 @@
 ---
 import '../styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
+import config from '@/config/config.json';
+import Header from '@/layouts/partials/Header.astro';
+import Footer from '@/layouts/partials/Footer.astro';
 
-interface Props {
+export interface Props {
   title?: string;
+  meta_title?: string;
   description?: string;
+  image?: string;
+  noindex?: boolean;
+  canonical?: string;
 }
 
-const { title = 'Agile - SaaS Theme', description = 'Agile is a clean SaaS template built with Tailwind CSS' } = Astro.props;
+const { title, meta_title, description, image, noindex, canonical } = Astro.props;
+
+const siteTitle = meta_title || title || config.site.title;
+const siteDescription = description || config.metadata.meta_description;
 ---
 
 <!doctype html>
@@ -15,17 +25,26 @@ const { title = 'Agile - SaaS Theme', description = 'Agile is a clean SaaS templ
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="icon" type="image/png" href={config.site.favicon} />
   <meta name="generator" content={Astro.generator} />
   
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <meta name="author" content="FuriousTheme" />
+  <title>{siteTitle}</title>
+  <meta name="description" content={siteDescription} />
+  <meta name="author" content={config.metadata.meta_author} />
+  
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  {canonical && <link rel="canonical" href={canonical} />}
   
   <!-- Open Graph -->
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  <meta property="og:title" content={siteTitle} />
+  <meta property="og:description" content={siteDescription} />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content={image || config.metadata.meta_image} />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={siteTitle} />
+  <meta name="twitter:description" content={siteDescription} />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,25 +64,26 @@ const { title = 'Agile - SaaS Theme', description = 'Agile is a clean SaaS templ
   <ViewTransitions />
 </head>
 <body>
-  <slot />
+  <Header />
+  
+  <main>
+    <slot />
+  </main>
+  
+  <Footer />
   
   <!-- Swiper JS -->
   <script is:inline src="/plugins/swiper/swiper-bundle.js"></script>
   <!-- Shuffle JS -->
   <script is:inline src="/plugins/shuffle/shuffle.min.js"></script>
-  <!-- Main Script - reinitialize on navigation -->
+  <!-- Main Script -->
   <script>
     function initScripts() {
-      // Re-run main.js logic after page transitions
       const mainScript = document.createElement('script');
       mainScript.src = '/scripts/main.js';
       document.body.appendChild(mainScript);
     }
-    
-    // Run on initial load
     initScripts();
-    
-    // Run after each navigation (View Transitions)
     document.addEventListener('astro:after-swap', initScripts);
   </script>
   

@@ -1,0 +1,62 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "About",
+      "url": "/about"
+    },
+    {
+      "name": "Solutions",
+      "url": "/solution"
+    },
+    {
+      "name": "Pages",
+      "url": "#",
+      "hasChildren": true,
+      "children": [
+        { "name": "Pricing", "url": "/pricing" },
+        { "name": "Careers", "url": "/careers" },
+        { "name": "Team", "url": "/team" },
+        { "name": "Case Study", "url": "/case-study" },
+        { "name": "Webinars", "url": "/webinars" },
+        { "name": "Contact", "url": "/contact" }
+      ]
+    },
+    {
+      "name": "Blog",
+      "url": "/blog"
+    }
+  ],
+  "footer": [
+    {
+      "name": "Company",
+      "children": [
+        { "name": "About", "url": "/about" },
+        { "name": "Careers", "url": "/careers" },
+        { "name": "Team", "url": "/team" },
+        { "name": "Contact", "url": "/contact" }
+      ]
+    },
+    {
+      "name": "Product",
+      "children": [
+        { "name": "Solutions", "url": "/solution" },
+        { "name": "Pricing", "url": "/pricing" },
+        { "name": "Case Study", "url": "/case-study" },
+        { "name": "Webinars", "url": "/webinars" }
+      ]
+    },
+    {
+      "name": "Resources",
+      "children": [
+        { "name": "Blog", "url": "/blog" },
+        { "name": "Support", "url": "/contact" },
+        { "name": "Privacy Policy", "url": "#" },
+        { "name": "Terms of Service", "url": "#" }
+      ]
+    }
+  ]
+}
